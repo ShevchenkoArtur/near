@@ -1,5 +1,5 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
-import {initContractThunk} from '../action-creators/near';
+import {getContractData} from '../action-creators/near';
 import {InitialContract} from '../../types/initialContract';
 
 interface nearState {
@@ -20,14 +20,14 @@ const nearReducer = createSlice({
     reducers: {},
     extraReducers: builder => {
         builder
-            .addCase(initContractThunk.pending.type, (state) => {
+            .addCase(getContractData.pending.type, (state) => {
                 state.isLoading = true;
             })
-            .addCase(initContractThunk.fulfilled.type, (state, action: PayloadAction<InitialContract>) => {
+            .addCase(getContractData.fulfilled.type, (state, action: PayloadAction<InitialContract>) => {
                 state.contractData = action.payload;
                 state.isLoading = false;
             })
-            .addCase(initContractThunk.rejected.type, (state, action: PayloadAction<string>) => {
+            .addCase(getContractData.rejected.type, (state, action: PayloadAction<string>) => {
                 state.error = action.payload;
                 state.isLoading = false;
             })

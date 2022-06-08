@@ -1,14 +1,20 @@
-import React, {FC} from 'react';
-import {InitialContract} from './types/initialContract';
+import React, {useEffect} from 'react';
+import {getContractData} from './store/action-creators/near';
+import {useAppDispatch} from './hooks/useAppDispatch';
 
-interface AppProps extends InitialContract {}
+const App = () => {
+    const dispatch = useAppDispatch();
 
-const App: FC<AppProps> = () => {
-  return (
-    <div>
-      App
-    </div>
-  );
+    useEffect(() => {
+        dispatch(getContractData());
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
+
+    return (
+        <div>
+            App
+        </div>
+    );
 }
 
 export default App;

@@ -1,8 +1,8 @@
 import {createAsyncThunk} from '@reduxjs/toolkit';
 import {initContract} from '../../utils';
 
-export const initContractThunk = createAsyncThunk(
-    'near/initContract',
+export const getContractData = createAsyncThunk(
+    'near/getContractData',
     async (_, thunkAPI) => {
         try {
             return await initContract();
