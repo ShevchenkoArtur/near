@@ -1,9 +1,10 @@
 import React, {useEffect} from 'react';
-import {getContractData} from './store/action-creators/near';
+import {getContractData, signOut} from './store/action-creators/near';
 import {useAppDispatch} from './hooks/useAppDispatch';
 import {useAppSelector} from './hooks/useAppSelector';
-import {Box, Button} from '@mui/material';
+import {Box, Button, Typography} from '@mui/material';
 import Loading from './components/UI/Loading';
+import SignIn from './components/pages/SignIn';
 
 const App = () => {
     const {contractData, error, isLoading} = useAppSelector(state => state.near);
@@ -41,12 +42,12 @@ const App = () => {
             {
                 contractData?.currentUser?.accountId
                     ?
-                    <h2>{contractData.currentUser.accountId}</h2>
-                    :
                     <>
-                        <p>Please, login to use the app!</p>
-                        <Button variant='contained'>Sign in</Button>
+                        <Typography>{contractData.currentUser.accountId}</Typography>
+                        <Button onClick={() => dispatch(signOut())}>out</Button>
                     </>
+                    :
+                    <SignIn />
             }
         </Box>
     );
