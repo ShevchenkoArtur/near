@@ -1,27 +1,14 @@
 import {createAsyncThunk} from '@reduxjs/toolkit';
-import {initContract} from '../../utils';
+import {RootState} from '../index';
 
-export const getContractData = createAsyncThunk(
-    'near/getContractData',
-    async (_, thunkAPI) => {
-        try {
-            return await initContract();
-        } catch (err) {
-            if (err instanceof Error) {
-                return thunkAPI.rejectWithValue(err.message);
-            }
-            console.error(err);
-            return thunkAPI.rejectWithValue('Something went wrong');
-        }
-    }
-);
-
-export const signIn = createAsyncThunk(
+export const signIn = createAsyncThunk<void, void, { state: RootState }>(
     'near/signIn',
     async (_, thunkAPI) => {
         try {
-            const {walletConnection, nearConfig} = await initContract();
-            await walletConnection.requestSignIn(nearConfig.contractName, 'near-app');
+            const {contractData} = thunkAPI.getState().near;
+            const {walletConnection, nearConfig} = contractData!;
+            await walletConnection
+                .requestSignIn(nearConfig.contractName, 'near-app', 'http://localhost:3000/');
         } catch (err) {
             if (err instanceof Error) {
                 return thunkAPI.rejectWithValue(err.message);
@@ -32,11 +19,12 @@ export const signIn = createAsyncThunk(
     }
 );
 
-export const signOut = createAsyncThunk(
+export const signOut = createAsyncThunk<void, void, {state: RootState}>(
     'near/signOut',
     async (_, thunkAPI) => {
         try {
-            const {walletConnection} = await initContract();
+            const {contractData} = thunkAPI.getState().near;
+            const {walletConnection} = contractData!;
             walletConnection.signOut();
             window.location.replace(window.location.origin + window.location.pathname);
         } catch (err) {

@@ -1,7 +1,7 @@
 import CharityList from '../pages/CharityList';
 import SignIn from '../pages/SignIn';
-import PrivateRoute from './PrivateRoute';
 import NotFound from '../pages/NotFound';
+import PrivateRoute from './PrivateRoute';
 
 export const routesArray = [
     {
