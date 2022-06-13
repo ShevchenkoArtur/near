@@ -2,12 +2,12 @@ import React from 'react';
 import {Box, Typography} from '@mui/material';
 import {absoluteCenterStyle} from '../../styles/common';
 
-const NotFound = () => {
+const NothingYet = () => {
     return (
         <Box sx={absoluteCenterStyle}>
-           <Typography variant='h6'>404 Not Found</Typography>
+            <Typography variant='h5'>There's nothing yet</Typography>
         </Box>
     );
 };
 
-export default NotFound;
+export default NothingYet;

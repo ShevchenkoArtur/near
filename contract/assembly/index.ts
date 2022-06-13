@@ -1,5 +1,19 @@
-// The entry file of your WebAssembly module.
+import {Post, Donation} from './model';
 
-export function add(a: i32, b: i32): i32 {
-  return a + b;
+// Post
+export function findAllPosts(): Post[] {
+  return Post.findAllPosts();
+}
+
+export function newPost(desc: string, imgUrl: string): Post {
+  return Post.newPost(desc, imgUrl);
+}
+
+// Donation
+export function findPostDonations(postId: u32): Donation[] {
+  return Donation.findPostDonations(postId);
+}
+
+export function newDonation(postId: u32, message: string): Donation {
+  return Donation.newDonation(postId, message);
 }

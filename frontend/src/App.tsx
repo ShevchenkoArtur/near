@@ -1,21 +1,17 @@
-import React, {FC, useEffect} from 'react';
-import Template from './components/Template';
-import {InitialContract} from './types/initialContract';
-import {useAppDispatch} from './hooks/useAppDispatch';
-import {setContractData} from './store/reducers/nearReducer';
+import React from 'react';
+import Header from './components/UI/Header';
+import Router from './components/router/Router';
+import {Box} from '@mui/material';
 
-interface AppProps {
-    contractData: InitialContract
-}
-
-const App: FC<AppProps> = (props) => {
-    const dispatch = useAppDispatch();
-
-    useEffect(() => {
-        dispatch(setContractData(props.contractData));
-    }, []);
-
-    return <Template />;
+const App = () => {
+    return (
+        <>
+            <Header />
+            <Box sx={{padding: '20px'}}>
+                <Router />
+            </Box>
+        </>
+    );
 }
 
 export default App;

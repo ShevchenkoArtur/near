@@ -1,8 +1,6 @@
-import {ConfigConnect} from './types/configConnect';
+const CONTRACT_NAME: string = process.env.CONTRACT_NAME || 'dev-1654797306784-14493107532216';
 
-const CONTRACT_NAME: string = process.env.CONTRACT_NAME || '';
-
-const getConfig = (env: string): ConfigConnect => {
+const getConfig = (env: string) => {
     switch (env) {
         case "production":
         case "mainnet":
