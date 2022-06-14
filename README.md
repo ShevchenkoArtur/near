@@ -2,6 +2,8 @@ Donation App
 ==================
 The contract is written in [AssebmlyScript](https://www.assemblyscript.org/introduction.html), and UI in [React](https://reactjs.org/docs/getting-started.html).
 You can log in via [Near](https://wallet.testnet.near.org/) account and create own posts with content and donate to them.
+   
+You can try the deployed application on [Vercel](https://vercel.com/dashboard): [DonationApp](https://near-donation-dapp.vercel.app/)
 
 Quick Start
 ===========
