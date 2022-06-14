@@ -12,18 +12,20 @@ const Profile = () => {
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const [posts, setPosts] = useState<PostType[]>([]);
 
+    const fetchPofilePosts = async () => {
+        try {
+            setIsLoading(true);
+            const data = await window.contract.findAllPosts();
+            setPosts(data.filter(el => el.publisher === id));
+            setIsLoading(false);
+        } catch (err) {
+            console.error(err);
+            setIsLoading(false);
+        }
+    }
+
     useEffect(() => {
-        (async () => {
-            try {
-                setIsLoading(true);
-                const data = await window.contract.findAllPosts();
-                setPosts(data.filter(el => el.publisher === id));
-                setIsLoading(false);
-            } catch (err) {
-                console.error(err);
-                setIsLoading(false);
-            }
-        })();
+        fetchPofilePosts();
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 

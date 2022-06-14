@@ -10,18 +10,20 @@ const Posts = () => {
     const [posts, setPosts] = useState<PostType[]>([]);
     const [isLoading, setIsLoading] = useState<boolean>(false);
 
+    const fetchPosts = async () => {
+        try {
+            setIsLoading(true);
+            const data = await window.contract.findAllPosts();
+            setPosts(data);
+            setIsLoading(false);
+        } catch (err) {
+            setIsLoading(false);
+            console.error(err);
+        }
+    }
+
     useEffect(() => {
-        (async () => {
-            try {
-                setIsLoading(true);
-                const data = await window.contract.findAllPosts();
-                setPosts(data);
-                setIsLoading(false);
-            } catch (err) {
-                setIsLoading(false);
-                console.error(err);
-            }
-        })();
+        fetchPosts();
     }, []);
 
     return (

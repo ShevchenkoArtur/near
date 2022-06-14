@@ -2,62 +2,49 @@ import React, {FC, useEffect, useState} from 'react';
 import {Post as PostType} from '../types/post';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
-import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
-import {Box, Button, CardActionArea, CardActions, Divider, TextField} from '@mui/material';
-import placeholder from '../images/placeholder-image.png';
+import {Box, Button, CardActions, Divider, TextField} from '@mui/material';
 import {utils} from 'near-api-js';
-import {useNavigate} from 'react-router-dom';
 import MailOutlineIcon from '@mui/icons-material/MailOutline';
 import UserBar from './UI/UserBar';
+import PostImage from './PostImage';
 
 interface PostProps {
     post: PostType,
 }
 
+export const DEFAULT_GAS = '100000000000000';
+
 const Post: FC<PostProps> = ({post}) => {
     const [value, setValue] = useState<string>('0');
     const [message, setMessage] = useState<string>('');
-    const [img, setImg] = useState<string>();
     const [sumOfDonation, setSumOfDonation] = useState<number>(0);
-    const navigate = useNavigate();
 
-    useEffect(() => {
-        (async () => {
-            try {
-                const res = await fetch(post.imgUrl);
-                const imageBlob = await res.blob();
-                if (imageBlob.type === 'image/jpeg') {
-                    const imageObjectURL = URL.createObjectURL(imageBlob);
-                    setImg(imageObjectURL);
-                } else {
-                    setImg(placeholder);
-                }
-            } catch (err) {
-                console.error(err);
-                setImg(placeholder);
-            }
-        })();
-        (async () => {
+    const computeDonationAmount = async () => {
+        try {
             let sum = 0;
             const data = await window.contract.findPostDonations({postId: post.id});
             data.forEach(el => {
-                sum += Number(utils.format.formatNearAmount(el.amount));
+                sum += Number(utils.format.formatNearAmount(el.amount))
             });
             setSumOfDonation(sum);
-        })();
+        } catch (err) {
+            console.error(err);
+        }
+    }
+
+    useEffect(() => {
+        computeDonationAmount();
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
-    const handleSend = async () => {
+    const sendFunds = async () => {
         try {
-            await window
-                .contract
-                .newDonation(
-                    {postId: post.id, message},
-                    "100000000000000",
-                    utils.format.parseNearAmount(value)
-                )
+            await window.contract.newDonation(
+                {postId: post.id, message},
+                DEFAULT_GAS,
+                utils.format.parseNearAmount(value)
+            );
         } catch (err) {
             console.error(err);
         }
@@ -67,17 +54,8 @@ const Post: FC<PostProps> = ({post}) => {
         <Box sx={{padding: '0 0 20px 0'}}>
             <Card sx={{minWidth: 275, maxWidth: 275, padding: '16px'}} elevation={3}>
                 <UserBar userId={post.publisher}/>
-                <CardActionArea>
-                    <CardMedia
-                        onClick={() => navigate(`/history/${post.id}`)}
-                        component="img"
-                        height="140"
-                        image={img}
-                        sx={{objectFit: 'cover'}}
-                    />
-                </CardActionArea>
+                <PostImage postId={post.id} imgUrl={post.imgUrl}/>
                 <CardContent>
-
                     <Typography variant="body2">
                         {post.desc}
                     </Typography>
@@ -111,12 +89,11 @@ const Post: FC<PostProps> = ({post}) => {
                             step: 0.01
                         }}
                     />
-
                 </CardActions>
                 <CardActions>
                     <Button
                         sx={{margin: '0 auto'}}
-                        onClick={handleSend}
+                        onClick={sendFunds}
                         variant='contained'
                     >
                         Send

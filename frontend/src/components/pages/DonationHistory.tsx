@@ -14,18 +14,20 @@ const DonationHistory = () => {
     const [donation, setDonation] = useState<Donation[]>([]);
     const navigate = useNavigate();
 
+    const fetchPostDonations = async () => {
+        try {
+            setIsLoading(true);
+            const data = await window.contract.findPostDonations({postId: Number(id)});
+            setDonation(data);
+            setIsLoading(false);
+        } catch (err) {
+            console.error(err);
+            setIsLoading(false);
+        }
+    }
+
     useEffect(() => {
-        (async () => {
-            try {
-                setIsLoading(true);
-                const data = await window.contract.findPostDonations({postId: Number(id)});
-                setDonation(data);
-                setIsLoading(false);
-            } catch (err) {
-                console.error(err);
-                setIsLoading(false);
-            }
-        })();
+        fetchPostDonations();
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 

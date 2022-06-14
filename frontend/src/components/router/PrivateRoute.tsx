@@ -11,11 +11,13 @@ const PrivateRoute: FC<PrivateRouteProps> = ({children, redirectTo}) => {
 
     useEffect(() => {
         setIsReady(true);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [window.walletConnection.getAccountId()]);
 
     const render = () => {
         return window.walletConnection.getAccountId() ? children : <Navigate to={redirectTo}/>
     }
+
     return (
         <>
             {isReady && render()}
