@@ -33,5 +33,9 @@ export function signOut() {
 
 export async function signIn() {
     //contract requesting access
-    await window.walletConnection.requestSignIn(nearConfig.contractName, 'near-app', 'http://localhost:3000/');
+    await window.walletConnection.requestSignIn(
+        nearConfig.contractName, // Near account where contract is deployed
+        'near-app', // optional title
+        process.env.REACT_APP_SUCCESSS_URL || 'http://localhost:3000/' // redirect to URL upon success
+    );
 }
