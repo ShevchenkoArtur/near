@@ -11,6 +11,7 @@ const NewPost = () => {
     const handleSubmit = async (e: FormEvent) => {
         e.preventDefault();
         setIsLoading(true);
+        // call contract API for creating new post
         await window.contract.newPost({desc, imgUrl});
         setDesc('');
         setImgUrl('')

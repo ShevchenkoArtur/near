@@ -15,14 +15,14 @@ describe('contract methods', () => {
     });
 
     it('newDonation - should create donation', () => {
-        const donation = newDonation(1);
+        const donation = newDonation(1, 'msg');
         expect(donations[donations.length - 1]).toStrictEqual(donation);
     });
 
     it('findPostDonations - should return post donations ', () => {
         const array: Donation[] = [];
         for (let i = 0; i < donations.length; i++) {
-            const donate = newDonation(1);
+            const donate = newDonation(1, 'msg');
             array.push(donate);
         }
         expect(findPostDonations(1)).toStrictEqual(array);

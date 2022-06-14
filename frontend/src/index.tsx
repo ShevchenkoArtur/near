@@ -7,6 +7,7 @@ import {initContract} from './utils';
 
 (async () => {
     try {
+        // initializing contract
         await initContract();
         const root = ReactDOM.createRoot(
             document.getElementById('root') as HTMLElement

@@ -8,14 +8,17 @@ import NothingYet from '../UI/NothingYet';
 import Loading from '../UI/Loading';
 
 const Profile = () => {
+    // get accountId from URL params
     const {id} = useParams();
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const [posts, setPosts] = useState<PostType[]>([]);
 
-    const fetchPofilePosts = async () => {
+    const fetchProfilePosts = async () => {
         try {
             setIsLoading(true);
+            // retrieving posts from contract API
             const data = await window.contract.findAllPosts();
+            // save specific to publisher posts to state
             setPosts(data.filter(el => el.publisher === id));
             setIsLoading(false);
         } catch (err) {
@@ -24,8 +27,9 @@ const Profile = () => {
         }
     }
 
+    // fetch user's posts when component did mount
     useEffect(() => {
-        fetchPofilePosts();
+        fetchProfilePosts();
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 

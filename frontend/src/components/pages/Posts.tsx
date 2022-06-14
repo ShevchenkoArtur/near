@@ -13,6 +13,7 @@ const Posts = () => {
     const fetchPosts = async () => {
         try {
             setIsLoading(true);
+            // retrieving posts from contract API and set it to state
             const data = await window.contract.findAllPosts();
             setPosts(data);
             setIsLoading(false);
@@ -22,6 +23,7 @@ const Posts = () => {
         }
     }
 
+    // start fetching posts when component did mount
     useEffect(() => {
         fetchPosts();
     }, []);

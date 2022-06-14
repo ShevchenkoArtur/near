@@ -9,6 +9,7 @@ import NothingYet from '../UI/NothingYet';
 
 
 const DonationHistory = () => {
+    // get postId from URL params
     const {id} = useParams();
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const [donation, setDonation] = useState<Donation[]>([]);
@@ -17,6 +18,7 @@ const DonationHistory = () => {
     const fetchPostDonations = async () => {
         try {
             setIsLoading(true);
+            // retrieving post donations and save it to store
             const data = await window.contract.findPostDonations({postId: Number(id)});
             setDonation(data);
             setIsLoading(false);
@@ -26,6 +28,7 @@ const DonationHistory = () => {
         }
     }
 
+    // fetch post donations, when component did mount
     useEffect(() => {
         fetchPostDonations();
         // eslint-disable-next-line react-hooks/exhaustive-deps
