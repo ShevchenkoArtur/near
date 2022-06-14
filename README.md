@@ -24,7 +24,7 @@ Exploring The Code
 ==================
 
 1. The "backend" code lives in the `/contract/assebmly` folder. You can find out them contract code and tests
-2. The frontend code lives in the `/src` folder. You can find utils and config files configuration and other components
+2. The frontend code lives in the `/src` folder. You can find out utils and config files configuration and other components
 
 Deploy
 ======
