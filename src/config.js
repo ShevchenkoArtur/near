@@ -58,4 +58,4 @@ const getConfig = (env) => {
     }
 }
 
-export default getConfig;
+module.exports = getConfig;

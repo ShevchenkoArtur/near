@@ -17,7 +17,9 @@
     "start": "react-app-rewired start",
     "build": "react-app-rewired build",
     "test": "react-app-rewired test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "deploy:dev": "near dev-deploy contract/build/release/contract.wasm",
+    "deploy:": "near deploy"
   },
   "eslintConfig": {
     "extends": [
