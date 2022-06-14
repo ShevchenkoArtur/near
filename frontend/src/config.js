@@ -1,6 +1,6 @@
-const CONTRACT_NAME: string = process.env.CONTRACT_NAME || 'dev-1654797306784-14493107532216';
+const CONTRACT_NAME = process.env.CONTRACT_NAME || 'dev-1654797306784-14493107532216';
 
-const getConfig = (env: string) => {
+const getConfig = (env) => {
     switch (env) {
         case "production":
         case "mainnet":
