@@ -5,7 +5,7 @@ import {Donation} from './donation';
 // Define types for contract with change and view methods
 export interface ContractWithMethods extends Contract {
     findAllPosts: () => Promise<Post[]>;
-    newPost: (params: {desc: string, imgUrl: string}) => Promise<Post>;
+    newPost: (params: {desc: string, imgUrl: string}) => Promise<void>;
     findPostDonations: (params: {postId: number}) => Promise<Donation[]>;
-    newDonation: (params: {postId: number, message: string}, gas: string, deposit: string) => Promise<Donation>;
+    sendFunds: (params: {postId: number, message: string}, gas: string, deposit: string) => Promise<void>;
 }

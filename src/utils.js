@@ -20,7 +20,7 @@ export async function initContract() {
         // View methods are read-only – they don't modify the state
         viewMethods: ['findAllPosts', 'findPostDonations'],
         // Change methods can modify the state
-        changeMethods: ['newPost', 'newDonation']
+        changeMethods: ['newPost', 'sendFunds']
     });
 }
 

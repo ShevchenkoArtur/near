@@ -1,30 +1,32 @@
-import {findAllPosts, findPostDonations, newDonation, newPost} from '../index';
-import {Donation, donations, Post, posts} from '../model';
+import {findAllPosts, findPostDonations} from '../index';
+import {Donation, Post} from '../model';
 
 describe('contract methods', () => {
-    it('newPost - should create post ', () => {
-        const post = newPost('desc', 'imgUrl');
-        expect(posts.getSome(post.id)).toStrictEqual(post);
-    });
-
     it('findAllPosts - should return posts ', () => {
-        const arr = new Array<number>(posts.length)
-            .fill(0)
-            .map<Post>((_, i) => Post.newPost('desc' + i.toString(), 'imgUrl' + i.toString()))
-        expect(findAllPosts()).toStrictEqual(arr);
+        Post.newPost('desc', 'imgUrl');
+        const postsArr = findAllPosts();
+        expect(postsArr.length).toBe(1);
     });
 
-    it('newDonation - should create donation', () => {
-        const donation = newDonation(1, 'msg');
-        expect(donations[donations.length - 1]).toStrictEqual(donation);
+    it('newPost - should create post ', () => {
+        Post.newPost('desc', 'imgUrl');
+        const postsArr = findAllPosts();
+        expect(postsArr.length).toBe(1);
+        expect(postsArr[0].desc).toStrictEqual('desc');
+        expect(postsArr[0].imgUrl).toStrictEqual('imgUrl');
     });
 
-    it('findPostDonations - should return post donations ', () => {
-        const array: Donation[] = [];
-        for (let i = 0; i < donations.length; i++) {
-            const donate = newDonation(1, 'msg');
-            array.push(donate);
-        }
-        expect(findPostDonations(1)).toStrictEqual(array);
+    it('findPostDonations - should return posts', () => {
+        Donation.newDonation(1, 'msg');
+        const donationArr = findPostDonations(1);
+        expect(donationArr.length).toBe(1);
+    });
+
+    it('newDonation - create donation', () => {
+        Donation.newDonation(1, 'msg');
+        const donationArr = findPostDonations(1);
+        expect(donationArr.length).toBe(1);
+        expect(donationArr[0].postId).toStrictEqual(1);
+        expect(donationArr[0].message).toStrictEqual('msg');
     });
 });

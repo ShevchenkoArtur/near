@@ -1,4 +1,4 @@
-import {Context, math, PersistentUnorderedMap, PersistentVector, u128} from 'near-sdk-as';
+import {Context, math, PersistentUnorderedMap, PersistentVector, u128, ContractPromiseBatch} from 'near-sdk-as';
 
 // Initializing an unordered map structure for saving posts collection to storage,
 export const posts = new PersistentUnorderedMap<u32, Post>("posts"); // unique storage prefix
@@ -23,11 +23,18 @@ export class Donation {
         this.message = message;
     }
 
-    static newDonation(postId: u32, message: string): Donation {
-        // Create donation to certain post, and add it to the end of the donations collection
+    static sendFunds(postId: u32, message: string): void {
+        // find post and send token from sender to the post publisher
+        const post = posts.getSome(postId);
+        const publisher = ContractPromiseBatch.create(post.publisher);
+        publisher.transfer(Context.attachedDeposit);
+        Donation.newDonation(postId, message);
+    }
+
+    static newDonation(postId: u32, message: string): void {
+        // Create donation to certain post, and add it to the donations collection
         const donation = new Donation(postId, message);
         donations.push(donation);
-        return donation;
     }
 
     static findPostDonations(postId: u32): Donation[] {
@@ -58,10 +65,9 @@ export class Post {
     }
 
     // Create post, and add it to posts collection with unique ID
-    static newPost(desc: string, imgUrl: string): Post {
+    static newPost(desc: string, imgUrl: string): void {
         const post = new Post(desc, imgUrl);
         posts.set(post.id, post);
-        return post;
     }
 
     // Returns all posts

@@ -40,7 +40,7 @@ const Post: FC<PostProps> = ({post}) => {
 
     const sendFunds = async () => {
         try {
-            await window.contract.newDonation(
+            await window.contract.sendFunds(
                 {postId: post.id, message},
                 DEFAULT_GAS,
                 utils.format.parseNearAmount(value)
