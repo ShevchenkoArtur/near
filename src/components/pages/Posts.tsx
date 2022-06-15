@@ -23,7 +23,6 @@ const Posts = () => {
         }
     }
 
-    // start fetching posts when component did mount
     useEffect(() => {
         fetchPosts();
     }, []);

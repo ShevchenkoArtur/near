@@ -27,7 +27,6 @@ const Profile = () => {
         }
     }
 
-    // fetch user's posts when component did mount
     useEffect(() => {
         fetchProfilePosts();
         // eslint-disable-next-line react-hooks/exhaustive-deps

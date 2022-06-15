@@ -25,9 +25,9 @@ const Post: FC<PostProps> = ({post}) => {
             let sum = 0;
             const data = await window.contract.findPostDonations({postId: post.id});
             data.forEach(el => {
-                sum += Number(utils.format.formatNearAmount(el.amount))
+                sum += Number(utils.format.formatNearAmount(el.amount));
             });
-            setSumOfDonation(sum);
+            setSumOfDonation(Number(sum.toFixed(2)));
         } catch (err) {
             console.error(err);
         }

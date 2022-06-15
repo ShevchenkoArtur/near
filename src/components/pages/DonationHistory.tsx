@@ -28,7 +28,6 @@ const DonationHistory = () => {
         }
     }
 
-    // fetch post donations, when component did mount
     useEffect(() => {
         fetchPostDonations();
         // eslint-disable-next-line react-hooks/exhaustive-deps
