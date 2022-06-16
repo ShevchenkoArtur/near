@@ -3,7 +3,7 @@ Donation App
 The contract is written in [AssebmlyScript](https://www.assemblyscript.org/introduction.html), and UI in [React](https://reactjs.org/docs/getting-started.html).
 You can log in via [Near Wallet](https://wallet.near.org/) account and create own posts with content and donate to them.
 
-Project overview: https://www.loom.com/share/6549f94516544eb3803373b9d58c3f54
+Project overview: [video](https://www.loom.com/share/6549f94516544eb3803373b9d58c3f54)
    
 Quick Start
 ===========
