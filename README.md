@@ -2,6 +2,8 @@ Donation App
 ==================
 The contract is written in [AssebmlyScript](https://www.assemblyscript.org/introduction.html), and UI in [React](https://reactjs.org/docs/getting-started.html).
 You can log in via [Near Wallet](https://wallet.near.org/) account and create own posts with content and donate to them.
+
+Project overview: https://www.loom.com/share/6549f94516544eb3803373b9d58c3f54
    
 Quick Start
 ===========
@@ -21,7 +23,7 @@ Go ahead and play with the app and the code. As you make code changes, the app w
 Exploring The Code
 ==================
 
-1. The "backend" code lives in the `/contract/assebmly` folder. You can find out them contract code and tests
+1. The "backend" code lives in the `/contract/assebmly` folder. You can find out them contract code and tests. To run tests use npm run test command. See contract/package.json for more contract scripts
 2. The frontend code lives in the `/src` folder. You can find out utils and config files configuration and other components
 
 Deploy
