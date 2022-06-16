@@ -41,7 +41,7 @@ const DonationHistory = () => {
                     :
                     <Box sx={flexGridStyle}>
                         <Button onClick={() => navigate(-1)} fullWidth>Back</Button>
-                        <Typography marginBottom={2} variant='h4' align='center'>DonationHistory</Typography>
+                        <Typography marginBottom={2} variant='h4' align='center'>Donation History</Typography>
                         {
                             donation.length ?
                                 donation.map((el, i) => <Donate key={i} donate={el}/>)
